@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Richa\\source\\repos\\HuddlyAssignment\\HuddlyAssignment\\HuddlyAssignment.csproj": {}
+    "C:\\Users\\richcb\\source\\repos\\DeviceAPI\\HuddlyAssignment.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Richa\\source\\repos\\HuddlyAssignment\\HuddlyAssignment\\HuddlyAssignment.csproj": {
+    "C:\\Users\\richcb\\source\\repos\\DeviceAPI\\HuddlyAssignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Richa\\source\\repos\\HuddlyAssignment\\HuddlyAssignment\\HuddlyAssignment.csproj",
+        "projectUniqueName": "C:\\Users\\richcb\\source\\repos\\DeviceAPI\\HuddlyAssignment.csproj",
         "projectName": "HuddlyAssignment",
-        "projectPath": "C:\\Users\\Richa\\source\\repos\\HuddlyAssignment\\HuddlyAssignment\\HuddlyAssignment.csproj",
-        "packagesPath": "C:\\Users\\Richa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Richa\\source\\repos\\HuddlyAssignment\\HuddlyAssignment\\obj\\",
+        "projectPath": "C:\\Users\\richcb\\source\\repos\\DeviceAPI\\HuddlyAssignment.csproj",
+        "packagesPath": "C:\\Users\\richcb\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\richcb\\source\\repos\\DeviceAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Richa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\richcb\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -64,6 +63,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.24, 6.0.24]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.24, 6.0.24]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.24, 6.0.24]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.24, 6.0.24]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -72,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

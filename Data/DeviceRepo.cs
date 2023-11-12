@@ -14,21 +14,7 @@ namespace HuddlyAssignment.Data
             _configuration = configuration;
             _csvFilePath = _configuration["CSVFilePath"];
         }
-        public void CreateDevice(Device device)
-        {
-            try
-            {
-                using (var writer = new StreamWriter(_csvFilePath))
-                {
-                    var line = $"{device.DeviceId},{device.DeviceModel},{device.Room},{device.Organization},{device.DateAdded}";
-                    writer.WriteLine(line);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception: {ex.Message}");
-            }
-        }
+ 
 
         public void CreateDevices(List<Device> devices)
         {
@@ -46,6 +32,15 @@ namespace HuddlyAssignment.Data
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+        public void CreateDeviceById(Device device)
+        {
+            var devices = GetDevices();
+            if(device != null)
+            {
+                devices.Add(device);
+                CreateDevices(devices);
             }
         }
 
@@ -100,6 +95,18 @@ namespace HuddlyAssignment.Data
             return devices;
         }
 
+        public bool DeviceExists(string deviceId)
+        {
+            var devices = GetDevices();
+            foreach (var device in devices)
+            {
+                if(deviceId == device.DeviceId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public bool SaveChanges()
         {
             throw new NotImplementedException();

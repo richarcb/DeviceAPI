@@ -6,9 +6,10 @@ namespace HuddlyAssignment.Data
     {
         bool SaveChanges();
         Device GetDeviceById(string deviceId);
-        void CreateDevice(Device device);
+        void CreateDeviceById(Device device);
         List<Device> GetDevices();
 
         void DeleteDeviceById(string deviceId);
+        bool DeviceExists(string deviceId);
     }
 }

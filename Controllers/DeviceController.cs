@@ -35,18 +35,29 @@ namespace HuddlyAssignment.Controllers
             var devices = _repository.GetDevices();
             return Ok(devices);
         }
-        [HttpGet("id/{deviceId}")]
-        public ActionResult<Device> Test(string deviceId)
-        {
-            return Ok(deviceId);
-        }
+
         [HttpPost]
         public ActionResult<Device> CreateDevice(Device device)
         {
-            //validering - if deviceId exists
-            _repository.CreateDevice(device);
+            Console.WriteLine("--> Creating Device");
+            if (_repository.DeviceExists(device.DeviceId))
+            {
+                return StatusCode(409);
+            }
+            _repository.CreateDeviceById(device);
             return Ok(device);
 
+        }
+        [HttpDelete("{deviceId}")]
+        public ActionResult<string> DeleteDevice(string deviceId)
+        {
+            Console.WriteLine($"--> Deleting device with Id {deviceId}");
+            if(!_repository.DeviceExists(deviceId))
+            {
+                return NotFound();
+            }
+            _repository.DeleteDeviceById(deviceId);
+            return Ok(deviceId);
         }
 
     }
