@@ -68,3 +68,9 @@ C:\Users\richcb\source\repos\DeviceAPI\obj\Debug\net6.0\refint\HuddlyAssignment.
 C:\Users\richcb\source\repos\DeviceAPI\obj\Debug\net6.0\HuddlyAssignment.pdb
 C:\Users\richcb\source\repos\DeviceAPI\obj\Debug\net6.0\HuddlyAssignment.genruntimeconfig.cache
 C:\Users\richcb\source\repos\DeviceAPI\obj\Debug\net6.0\ref\HuddlyAssignment.dll
+C:\Users\richcb\source\repos\DeviceAPI\bin\Debug\net6.0\xunit.abstractions.dll
+C:\Users\richcb\source\repos\DeviceAPI\bin\Debug\net6.0\xunit.assert.dll
+C:\Users\richcb\source\repos\DeviceAPI\bin\Debug\net6.0\xunit.core.dll
+C:\Users\richcb\source\repos\DeviceAPI\bin\Debug\net6.0\xunit.execution.dotnet.dll
+C:\Users\richcb\source\repos\DeviceAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\richcb\source\repos\DeviceAPI\bin\Debug\net6.0\NuGet.Frameworks.dll

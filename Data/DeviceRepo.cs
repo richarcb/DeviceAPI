@@ -1,25 +1,27 @@
 ﻿using HuddlyAssignment.Models;
 using CsvHelper;
 using System.Globalization;
+using System.Reflection.PortableExecutable;
+using System.Reflection;
+using HuddlyAssignment.Dtos;
 
 namespace HuddlyAssignment.Data
 {
     public class DeviceRepo : IDeviceRepo
     {
-        private readonly IConfiguration _configuration;
         private readonly string _csvFilePath;
-
-        public DeviceRepo(IConfiguration configuration)
+        private Mutex _fileMutex = new Mutex();
+        public DeviceRepo(string filePath)
         {
-            _configuration = configuration;
-            _csvFilePath = _configuration["CSVFilePath"];
+            _csvFilePath = filePath; //_configuration["CSVFilePath"];
+        
         }
- 
 
         public void CreateDevices(List<Device> devices)
         {
             try
             {
+                _fileMutex.WaitOne();
                 using (var writer = new StreamWriter(_csvFilePath))
                 {
                     foreach (var device in devices) 
@@ -29,16 +31,22 @@ namespace HuddlyAssignment.Data
                     }
                 }
             }
+            
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            finally 
+            {
+                _fileMutex.ReleaseMutex(); 
+            }  
         }
-        public void CreateDeviceById(Device device)
+        public void CreateDevice(Device device)
         {
-            var devices = GetDevices();
+            var devices = FetchDevices();
             if(device != null)
             {
+
                 devices.Add(device);
                 CreateDevices(devices);
             }
@@ -46,7 +54,7 @@ namespace HuddlyAssignment.Data
 
         public void DeleteDeviceById(string deviceId)
         {
-            var devices = GetDevices();
+            var devices = FetchDevices();
             var deviceToDelete = devices.FirstOrDefault(d => d.DeviceId == deviceId);
 
             if(deviceToDelete != null)
@@ -56,23 +64,53 @@ namespace HuddlyAssignment.Data
             }
         }
 
-        public Device GetDeviceById(string deviceId)
+        public Device FetchDeviceById(string deviceId)
         {
-            var devices = GetDevices();
+            var devices = FetchDevices();
             return devices.FirstOrDefault(d => d.DeviceId == deviceId);
         }
 
-        public List<Device> GetDevices()
+        public List<Device> FetchDevices()
         {
             List<Device> devices = new List<Device>();
             try
             {
+                _fileMutex.WaitOne();
                 using (var reader = new StreamReader(_csvFilePath))
                 {
-                    while(!reader.EndOfStream)
+                    string fileContents = reader.ReadToEnd();
+                    _fileMutex.ReleaseMutex();
+                    devices = ParseStringContent(fileContents);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading CSV: {ex.Message}");
+
+            }
+            return devices;
+        }
+
+        public List<Device> ParseStringContent(string stringContent)
+        {
+            var devices = new List<Device>();
+            PropertyInfo[] deviceProperties = typeof(Device).GetProperties();
+
+            try
+            {
+                
+                using (StringReader stringReader = new StringReader(stringContent))
+                {
+                    string line;
+                    while ((line = stringReader.ReadLine()) != null)
                     {
-                        var row = reader.ReadLine();
-                        var values = row.Split(',');
+                        var values = line.Split(',');
+
+                        if(values.Length != deviceProperties.Length)
+                        {
+                            Console.WriteLine("CSV entry did not have all fields populated");
+                            continue;
+                        }
 
                         var device = new Device
                         {
@@ -89,15 +127,16 @@ namespace HuddlyAssignment.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error reading CSV: {ex.Message}");
-
+                Console.WriteLine(ex.Message);
             }
+            
+
             return devices;
         }
 
         public bool DeviceExists(string deviceId)
         {
-            var devices = GetDevices();
+            var devices = FetchDevices();
             foreach (var device in devices)
             {
                 if(deviceId == device.DeviceId)
@@ -106,10 +145,6 @@ namespace HuddlyAssignment.Data
                 }
             }
             return false;
-        }
-        public bool SaveChanges()
-        {
-            throw new NotImplementedException();
         }
 
         

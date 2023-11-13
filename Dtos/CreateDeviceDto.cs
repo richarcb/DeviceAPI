@@ -1,14 +1,16 @@
-﻿namespace HuddlyAssignment.Models
-{
-    public class Device
-    {
-        public string DeviceId { get; set; }
-        public string DeviceModel { get; set; }
-        public string Room { get; set; }
-        public string Organization { get; set; }
-        //datetime
-        public string DateAdded { get; set; }
-    }
+﻿using System.ComponentModel.DataAnnotations;
 
-    //device+string funksjon for fornuftig printing
+namespace HuddlyAssignment.Dtos
+{
+    public class CreateDeviceDto
+    {
+        [Required]
+        public string DeviceId { get; set; }
+        [Required]
+        public string DeviceModel { get; set; }
+        [Required]
+        public string Room { get; set; }
+        [Required]
+        public string Organization { get; set; }
+    }
 }
