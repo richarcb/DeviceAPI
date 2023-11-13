@@ -10,5 +10,4 @@
         public string DateAdded { get; set; }
     }
 
-    //device+string funksjon for fornuftig printing
 }
